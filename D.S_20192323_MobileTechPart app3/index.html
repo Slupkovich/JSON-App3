@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<!-- Default Style Sheet for  JQuery Mobile -->
+		<link rel="stylesheet" href="CSS/jquery.mobile.css" />
+		<link rel="stylesheet" href="CSS/jquery.mobile-1.4.5.min.css" />
+		<link rel="stylesheet" href="CSS/Colour.3.css" />
+		<link rel="stylesheet" href="CSS/Colour.3.min.css" />
+		<!-- load local JQuery Framework -->
+		<script src="js/jquery.js"></script>
+		<!-- load local JQuery Mobile Framework -->
+		<script src="js/jquery.mobile.js"></script>
+
+		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/jquery.mobile-1.4.5.min.js"></script>
+
+<title>Website</title>
+<script>
+
+$( document ).ready(function() {
+
+	$.ajax({
+		type: 'GET',
+		url: 'http://192.168.0.102/20192323/data.php',
+		//url: 'http://localhost:9080/sample-server-side-folder/data.php',
+		contentType: 'text/plain',
+		xhrFields: {
+			withCredentials: false
+		},
+		headers: {
+		},
+		success: function(result) {
+			console.log(result);
+			data = JSON.parse(result);
+			//data = result;
+			onLoad(data);
+		},
+		error: function() {
+			alert("Server Connection Failed.");
+		}
+	});
+});
+
+function onLoad(data){
+	//console.log(data);
+	listPets(data);
+	listPets1(0);
+	UpownerDetails();
+	AppointDetails();
+}
+
+function listPets(data){
+	var str = '';
+	for(var i=0;i<data["pets"].length;i++){
+		//str += '<li><a href="#">'+data["trainers"][i]["Trainer_Name"]+'</a></li>';
+        str += '<option value="6">'+data["pets"][i]["Pet_Name"]+'</option>';
+        console.log(data["pets"].length);
+	}
+	console.log(str);
+	//document.getElementById("listOfPets").innerHTML = str;
+	document.getElementById("select-native-3").innerHTML = str;
+		document.getElementById("select-native-3").onchange = function() {
+		listPets1(this.selectedIndex); }
+}
+
+function listPets1(num)
+{
+	var str = '';
+		str += '<label for="text-basic">Trainer Name:</label>';
+    str += '<input type="text" class="ui-btn ui-btn-a" name="text-basic1" id="text-basic1" value="'+data["pets"][num]["Pet_Name"]+'">';
+		str += '<label for="text-basic">Trainer ID:</label>';
+		str += '<input type="text" class="ui-btn ui-btn-a" name="text-basic" id="text-basic" value="'+data["pets"][num]["Pet_ID"]+'">';
+		str += '<label for="text-basic">Trainers Strength:</label>';
+		str += '<input type="text" class="ui-btn ui-btn-a" name="text-basic" id="text-basic" value="'+data["pets"][num]["Pet_Type"]+'">';
+		str += '<label for="text-basic">Trainer Age:</label>';
+		str += '<input type="text" class="ui-btn ui-btn-a" name="text-basic" id="text-basic" value="'+data["pets"][num]["Pet_Age"]+'">';
+		str += '<label for="text-basic">Availability:</label>';
+		str += '<input type="text" class="ui-btn ui-btn-a" name="text-basic" id="text-basic" value="'+data["pets"][num]["is_Alergic_Penicillin"]+'">';
+		str += '<label for="text-basic">Gender:</label>';
+		str += '<input type="text" class="ui-btn ui-btn-a" name="text-basic" id="text-basic" value="'+data["pets"][num]["Pet_Sex"]+'">';
+
+	document.getElementById("text-basic1").innerHTML = str;
+}
+
+function UpownerDetails ()
+{
+	var str = '';
+		str += '<label for="text-basic">Owner ID:</label>'
+		str += '<input type="text" class="ui-btn ui-btn-a" name="text-basic" id="text-basic" value="'+data["ownerDetails"][0]["ID"]+'">';
+		str += '<label for="text-basic">First Name:</label>'
+		str += '<input type="text" class="ui-btn ui-btn-a" name="text-basic" id="text-basic" value="'+data["ownerDetails"][0]["FName"]+'">';
+		str += '<label for="text-basic">Surname:</label>'
+		str += '<input type="text" class="ui-btn ui-btn-a" name="text-basic" id="text-basic" value="'+data["ownerDetails"][0]["Surname"]+'">'
+		str += '<label for="text-basic">Address 1:</label>'
+		str += '<input type="text" class="ui-btn ui-btn-a" name="text-basic" id="text-basic" value="'+data["ownerDetails"][0]["Add1"]+'">'
+		str += '<label for="text-basic">Address 2:</label>'
+		str += '<input type="text" class="ui-btn ui-btn-a" name="text-basic" id="text-basic" value="'+data["ownerDetails"][0]["Add2"]+'">'
+		str += '<label for="text-basic">City :</label>'
+		str += '<input type="text" class="ui-btn ui-btn-a" name="text-basic" id="text-basic" value="'+data["ownerDetails"][0]["City"]+'">';
+		str += '<label for="text-basic">PostCode :</label>'
+		str += '<input type="text" class="ui-btn ui-btn-a" name="text-basic" id="text-basic" value="'+data["ownerDetails"][0]["Post_Code"]+'">';
+		str += '<label for="text-basic">Country :</label>'
+		str += '<input type="text" class="ui-btn ui-btn-a" name="text-basic" id="text-basic" value="'+data["ownerDetails"][0]["Country"]+'">';
+
+	document.getElementById("owner").innerHTML = str;
+}
+
+function AppointDetails ()
+{
+	var str = '';
+		str += '<label for="text-basic">Personal Gym PIN Numbers :</label>';
+		str += '<input type="text" class="ui-btn ui-btn-a" name="text-basic" id="text-basic" value="'+data["appointments"][0]["AID"]+'">';
+		str += '<label for="text-basic">Appointment Date and Time:</label>';
+		str += '<input type="text" class="ui-btn ui-btn-a" name="text-basic" id="text-basic" value="'+data["appointments"][0]["Appoint_Date_Time"]+'">';
+		str += '<label for="text-basic">Attended:</label>';
+		str += '<input type="text" class="ui-btn ui-btn-a" name="text-basic" id="text-basic" value="'+data["appointments"][0]["Attended"]+'">';
+		str += '<label for="text-basic">Sector:</label>';
+		str += '<input type="text" class="ui-btn ui-btn-a" name="text-basic" id="text-basic" value="'+data["appointments"][0]["Room"]+'">';
+		str += '<label for="text-basic">Pet ID:</label>';
+		str += '<input type="text" class="ui-btn ui-btn-b" name="text-basic" id="text-basic" value="'+data["appointments"][0]["Pet_ID"]+'">';
+		str += '<label for="text-basic">Personal Trainer ID:</label>';
+		str += '<input type="text" class="ui-btn ui-btn-a" name="text-basic" id="text-basic" value="'+data["appointments"][0]["Vet_ID"]+'">';
+
+	document.getElementById("appoint").innerHTML = str;
+}
+
+</script>
+
+	</head>
+	<body>
+
+<!-- Start of first page -->
+<div data-role="page" id="intro">
+		<div data-role="header">
+				<h1>Slupko Gymnasium</h1>
+		</div><!-- /header -->
+
+		<div role="main" class="ui-content">
+	  	<p><center><img src="img/Gym1.jpg" alt="Gym picture"></center></p>
+		</div>
+		<p> <a href="#new-customer" class="ui-btn ui-btn-a">Registration For New Members</a> </p>
+		<p> <a href="#Login" class="ui-btn ui-btn-a">Login</a> </p>
+
+</div><!-- /content -->
+
+
+<!-- main menu -->
+<div data-role="page" id="Login">
+
+	<div data-role="header">
+		<h1>Login Details</h1>
+	</div><!-- /header -->
+
+		<p>
+				<label for="text-basic">Email:</label>
+				<input type="text" name="text-basic" id="text-basic" value="" placeholder="MyEmail@gmail.com">
+  	</p>
+
+	<p>
+	    <label for="password">Password:</label>
+      <input type="password" name="password" id="password" value="" autocomplete="off">
+	</p>
+
+	<p> <a href="#gym-menu" class="ui-btn ui-btn-a">Login</a> </p>
+
+		<a href="#intro" class="ui-btn ui-btn-inline ui-icon-arrow-l ui-btn-icon-left">Back to Main Page</a>
+</div><!-- /content -->
+
+
+
+	<!-- main menu -->
+<div data-role="page" id="new-customer">
+
+					<div data-role="header">
+						<h1>New Customer</h1>
+					</div><!-- /header -->
+
+				<p>
+					<label for="text-basic">Email:</label>
+				<input type="text" name="text-basic" id="text-basic" value="" placeholder ="MyEmail@gmail.com">
+				</p>
+
+				<p>
+					<label for="password">Password:</label>
+				  <input type="password" name="password" id="password" value="" autocomplete="off">
+				</p>
+
+				<p>
+					<label for="password"> Confirm Password:</label>
+				  <input type="password" name="password" id="password" value="" autocomplete="off">
+				</p>
+
+				<p>
+					<label for="text-basic">First Name:</label>
+				  <input type="text" name="text-basic" id="text-basic" value="" placeholder ="">
+				</p>
+
+				<p>
+					<label for="text-basic">Surname:</label>
+				  <input type="text" name="text-basic" id="text-basic" value="" placeholder ="">
+				</p>
+
+				<p>
+					<label for="text-basic">Address 1:</label>
+				  <input type="text" name="text-basic" id="text-basic" value="" placeholder ="Required">
+				</p>
+
+				<p>
+					<label for="text-basic">Address 2:</label>
+				  <input type="text" name="text-basic" id="text-basic" value="" placeholder ="">
+				</p>
+
+				<p>
+					<label for="text-basic">Post Code:</label>
+				  <input type="text" name="text-basic" id="text-basic" value="" placeholder ="Required">
+				</p>
+
+				<p>
+					<label for="text-basic">Country:</label>
+				  <input type="text" name="text-basic" id="text-basic" value="" placeholder ="Required">
+				</p>
+
+				<p>
+					<label for="text-basic">Phone Number:</label>
+				  <input type="text" name="text-basic" id="text-basic" value="" placeholder ="+353">
+				</p>
+
+				<div class="ui-field-contain">
+				    <label for="select-custom-1">Payment Method:</label>
+				    <select name="select-custom-1" id="select-custom-1" data-native-menu="false">
+				        <option value="1">AIB</option>
+				        <option value="2">PayPal</option>
+				        <option value="3">Master Card</option>
+				        <option value="4">Ulster Bank</option>
+				    </select>
+				</div>
+
+				<form>
+					<fieldset data-role="controlgroup" data-mini="true">
+					    <legend>DOB:</legend>
+					    <label for="select-v-6a">Day</label>
+					    <select name="select-v-6a" id="select-v-6a">
+					        <option value="#">1</option>
+					        <option value="#">2</option>
+					        <option value="#">3</option>
+					 				<option value="#">4</option>
+					        <option value="#">5</option>
+					        <option value="#">6</option>
+									<option value="#">7</option>
+					        <option value="#">8</option>
+					        <option value="#">9</option>
+					 				<option value="#">10</option>
+					        <option value="#">11</option>
+					        <option value="#">12</option>
+					 				<option value="#">13</option>
+					        <option value="#">14</option>
+					        <option value="#">15</option>
+					 				<option value="#">16</option>
+					        <option value="#">17</option>
+					        <option value="#">18</option>
+									<option value="#">19</option>
+					        <option value="#">20</option>
+					        <option value="#">21</option>
+					 				<option value="#">22</option>
+					        <option value="#">23</option>
+									<option value="#">24</option>
+					 				<option value="#">25</option>
+					        <option value="#">26</option>
+									<option value="#">27</option>
+					        <option value="#">28</option>
+					 				<option value="#">29</option>
+					        <option value="#">30</option>
+									<option value="#">31</option>
+					    </select>
+
+					<label for="select-v-6b">Month</label>
+					    <select name="select-v-6b" id="select-v-6b">
+					        <option value="#">January</option>
+					        <option value="#">February</option>
+					        <option value="#">March</option>
+									<option value="#">April</option>
+									<option value="#">June</option>
+									<option value="#">July</option>
+									<option value="#">August</option>
+									<option value="#">September</option>
+									<option value="#">October</option>
+									<option value="#">November</option>
+									<option value="#">December</option>
+					    </select>
+
+					<label for="select-v-6c">Select C</label>
+					    <select name="select-v-6c" id="select-v-6c">
+					        <option value="#">1990</option>
+					        <option value="#">1991</option>
+					        <option value="#">1992</option>
+									<option value="#">1993</option>
+					        <option value="#">1994</option>
+					        <option value="#">1995</option>
+									<option value="#">1996</option>
+					        <option value="#">1997</option>
+					        <option value="#">1998</option>
+									<option value="#">1999</option>
+					        <option value="#">2000</option>
+					        <option value="#">2001</option>
+					        <option value="#">2002</option> 
+					        <option value="#">2003</option>
+					    </select>
+					</fieldset>
+				</form>
+
+				<form>
+				    <a href= "#">I have read and agree to the terms and conditions</a>
+				    <input type="checkbox" name="checkbox-mini-0" id="checkbox-mini-0" data-mini="true">
+				    <label for="checkbox-mini-0">I Agree</label>
+				</form>
+
+				<p> <a href="#Login" class="ui-btn ui-btn-a">Submit</a> </p>
+
+  	<a href="#intro" class="ui-btn ui-btn-inline ui-icon-arrow-l ui-btn-icon-left">Back to Main Page</a>
+
+</div><!-- /content -->
+
+
+
+<div data-role="page" id="gym-menu">
+
+	<div data-role="header">
+		<h1>Main Menu</h1>
+	</div><!-- /header -->
+
+						<p> <a href="#Book" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-calendar">Book An Appointment</a> </p>
+						<p> <a href="#time" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-clock">Opening Hours</a> </p>
+						<p> <a href="#View" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-bullets">Appointment(s) Booked</a> </p>
+						<p> <a href="#bmi-cal" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-heart">BMI</a> </p>
+						<p> <a href="#Acc" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-gear">Edit/View Account Details</a> </p>
+						<p> <a href="#Login" class="ui-btn ui-btn-inline ui-btn-a ui-btn-icon-left ui-icon-user">Switch Account</a> </p>
+						<p> <a href="#intro" class="ui-btn ui-btn-inline ui-btn-a ui-btn-icon-left ui-icon-power">Sign out</a> </p>
+
+</div><!-- /content -->
+
+
+<!-- OPENING HOURS -->
+<div data-role="page" id="time">
+
+		<div data-role="header">
+		 <h1>Opening Times</h1>
+		</div><!-- /header -->
+
+		<div role="main" class="ui-content">
+
+			  <div class="ui-grid-b">
+			    <div class="ui-block-a"><div class="ui-bar ui-bar-a" style="height:60px">9:00-17:00 Monday</div></div>
+			    <div class="ui-block-b"><div class="ui-bar ui-bar-a" style="height:60px">9:00-17:00 Tuesday</div></div>
+			    <div class="ui-block-a"><div class="ui-bar ui-bar-a" style="height:60px">9:00-17:00 Wednesday</div></div>
+			    <div class="ui-block-b"><div class="ui-bar ui-bar-a" style="height:60px">9:00-17:00 Thursday</div></div>
+			  </div><!-- /grid-b -->
+
+			<div class="ui-grid-b">
+			    <div class="ui-block-a"><div class="ui-bar ui-bar-a" style="height:60px">9:00-17:00 Friday</div></div>
+			    <div class="ui-block-b"><div class="ui-bar ui-bar-a" style="height:60px">9:00-17:00 Saturday</div></div>
+			    <div class="ui-block-a"><div class="ui-bar ui-bar-a" style="height:60px">9:00-17:00 Sunday</div></div>
+			    <div class="ui-block-b"><div class="ui-bar ui-bar-a" style="height:60px">9:00-15:00   Bank Holiday</div></div>
+			</div><!-- /grid-b -->
+
+		</div><!-- /content -->
+
+		<div data-role="footer">
+	   <a href="#gym-menu" class="ui-btn ui-btn-inline ui-icon-arrow-l ui-btn-icon-left">Back</a>
+	  </div>
+
+</div>
+
+
+<!-- EDIT/VIEW ACCOUNT DETAILS -->
+<div data-role="page" class="jqm-demos ui-responsive-panel" id="Acc" data-title="Panel responsive page">
+					   <div data-role="header">
+					        <h1>Account</h1>
+					        <a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
+					   </div><!-- /header -->
+
+			<div role="main" class="ui-content jqm-content jqm-fullwidth">
+								        <h1>Account Details</h1>
+								<p>
+									<div id="owner"></div>
+
+									<p>
+									  <label for="text-basic">Email:</label>
+							    	<input type="text" class="ui-btn ui-btn-a" name="text-basic" id="text-basic" value="" placeholder ="MyEmail@gmail.com">
+									</p>
+
+
+									<p>
+									 <label for="text-basic">Phone Number :</label>
+								   <input type="text" class="ui-btn ui-btn-a" name="text-basic" id="text-basic" value="" placeholder ="+353 ">
+									</p>
+
+									<div class="ui-field-contain">
+									    <label for="select-custom-1">Choose to remove Account(s):</label>
+										    <select name="select-custom-1" id="select-custom-1" data-iconpos="left">
+										        <option value="1">Current Account</option>
+										        <option value="2">Chooose Account</option>
+										        <option value="3">Chooose Account</option>
+										        <option value="4">Chooose Account</option>
+										    </select>
+									</div>
+
+						 
+								<p> <a href="#Login" class="ui-btn ui-btn-inline ui-btn-a ui-btn-icon-left ui-icon-plus">Add Account</a> </p>
+								<p> <a href="#List" class="ui-btn ui-btn-inline ui-btn-a ui-btn-icon-left ui-icon-heart">View Personal Pt's</a> </p>
+								<p> <a href="#Bill" class="ui-btn ui-btn-inline ui-btn-a ui-btn-icon-left ui-icon-bars">Billing Info </a> </p>
+
+
+							</p>
+			</div>
+							 <div data-role="footer">
+						    <a href="#gym-menu" class="ui-btn ui-btn-inline ui-icon-arrow-l ui-btn-icon-left">Back</a>
+						  </div>
+
+
+		    <div data-role="panel" data-display="push" data-theme="b" id="nav-panel">
+		        <ul data-role="listview">
+									<li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+	                <li><a href="#gym-menu">Gym Main Menu</a></li>
+	                <li><a href="#Book">Book An Appointment</a></li>
+									<li><a href="#time">Opening Hours</a></li>
+									<li><a href="#View">Appointment(s) Booked</a></li>
+									<li><a href="#bmi-cal">BMI Calculator</a></li>
+		        </ul>
+		    </div><!-- /panel -->
+</div>
+
+
+<!-- APPOINTMENS BOOKED -->
+<div data-role="page" class="jqm-demos ui-responsive-panel" id="View" data-title="Panel responsive page">
+		    <div data-role="header">
+		        <h1>Appointments Booked</h1>
+		        <a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
+		    </div><!-- /header -->
+	 <div role="main" class="ui-content jqm-content jqm-fullwidth">
+		        <h1>Existing Appointments</h1>
+    	<p>    
+
+						<div id="appoint"></div>
+
+						<div class="ui-field-contain">
+						    <label for="select-custom-2">Personal Trainer:</label>
+						    <select name="select-custom-2" id="select-custom-4" >
+						        <option value="1">Bob Marley</option>
+						    </select>
+						</div>
+
+						   <form>
+						<div class="ui-field-contain">
+						    <label for="select-native-5">Appointment Day:</label>
+						    <select name="select-native-5" id="select-native-5" >
+						        <option value="1">Monday</option>
+						    </select>
+						</div>
+						</form>
+
+						<p>	<form>
+								    <fieldset data-role="controlgroup" data-theme="b" data-type="horizontal">
+								        <legend>Gender:</legend>
+								        <input type="radio" name="radio-choice-t-6" id="radio-choice-t-6a" value="1" checked="checked">
+								        <label for="radio-choice-t-6a">Male</label>
+								       
+								    </fieldset>
+						    </form>
+					  </p>
+
+
+						<p><center><a href="#popupDialog3" data-rel="popup" data-position-to="window" data-transition="pop" class="ui-btn ui-btn-a">Cancel Appointment</a>
+								<div data-role="popup" id="popupDialog3" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
+								    <div data-role="header" data-theme="a">
+								    	<h3>Attended</h3>
+								    </div>
+								    <div role="main" class="ui-content">
+								        <h3 class="ui-title">You have already attended the appointment</h3>
+												<p>If you wish you may book another appointment</p>
+								        <a href="" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a" data-rel="back">Back</a>
+								   	</div>
+
+								</div>
+								</center>
+						</p>
+
+				</p>
+
+
+  	</div><!-- /content -->
+
+
+		<div data-role="footer">
+	   <a href="#gym-menu" class="ui-btn ui-btn-inline ui-icon-arrow-l ui-btn-icon-left">Back</a>
+	  </div>
+
+		    <div data-role="panel" data-display="push" data-theme="b" id="nav-panel">
+		        <ul data-role="listview">
+		           
+		            <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+		                <li><a href="#gym-menu">Gym Main Menu</a></li>
+		                <li><a href="#Book">Book An Appointment</a></li>
+										<li><a href="#time">Opening Hours</a></li>
+										<li><a href="#bmi-cal">BMI Calculator</a></li>
+		                <li><a href="#Acc">Account Details</a></li>
+		        </ul>
+		    </div><!-- /panel -->
+</div>
+
+
+<!-- BMI CALCULATOR -->
+<div data-role="page" id="bmi-cal">
+
+			<div data-role="header">
+				<h1>BMI Calculator</h1>
+			</div>
+
+			<div role="main" class="ui-content">
+					<form name="bmiForm">
+							Your Weight(kg): <input type="text" name="weight" id="weight" size="10"><br />
+							Your Height(cm): <input type="text" name="height" id="height" size="10"><br />
+							<input type="button" value="Calculate BMI" onClick="calculateBmi()"><br />
+							Your BMI: <input type="text" id="bmi" id="bmi" size="10"><br />
+							<p id="feedback">This Means:</p>
+							<input type="reset" value="Reset" />
+					</form>
+			</div>
+
+			<div data-role="footer">
+		   <a href="#gym-menu" class="ui-btn ui-btn-inline ui-icon-arrow-l ui-btn-icon-left">Back</a>
+		  </div>
+
+</div>
+
+
+
+<!-- BOOK AN APPOINTMENT-->
+<div data-role="page" class="jqm-demos ui-responsive-panel" id="Book" data-title="Panel responsive page">
+				<div data-role="header">
+				        <h1>Book an Appointment</h1>
+				        <a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
+				</div><!-- /header -->
+
+				    <div role="main" class="ui-content jqm-content jqm-fullwidth">
+							       <h1>Appointment Details</h1>
+									<p>
+
+												<p>
+													<label for="text-basic">Personal Gym PIN Numbers:</label>
+													<input type="text" class="ui-btn ui-btn-a" name="text-basic" id="text-basic" value="" placeholder ="1001">
+												</p>
+
+
+												<p>
+													<label for="text-basic">Enter First Name:</label>
+													<input type="text" class="ui-btn ui-btn-a" name="text-basic" id="text-basic" value="" placeholder ="">
+												</p>
+
+												<p>
+													<label for="text-basic">Enter Surname:</label>
+													<input type="text" class="ui-btn ui-btn-a" name="text-basic" id="text-basic" value="" placeholder ="">
+												</p>
+
+												<div class="ui-field-contain">
+												    <label for="select-custom-2">Personal Trainer:</label>
+												    <select name="select-custom-2" id="select-custom-5" data-iconpos="left">
+												        <option value="1">Bob Marley</option>
+												        <option value="2">Jennifer Heuston</option>
+																<option value="2">Big Sean</option>
+												    </select>
+												</div>
+
+													<div class="ui-field-contain">
+												    <label for="select-native-9">Choose Appointment Day:</label>
+												    <select name="select-native-9" id="select-native-9" data-iconpos="left">
+												        <option value="1">Monday</option>
+												        <option value="2">Tuesday</option>
+												        <option value="3">Wednesday</option>
+												        <option value="4">Thursday</option>
+																<option value="5">Friday</option>
+																<option value="6">Saturday</option>
+																<option value="7">Sunday</option>
+												    </select>
+												 </div>
+
+
+
+												<form>
+													<div class="ui-field-contain">
+													    <label for="select-native-10">Choose Available Appointment Time:</label>
+													    <select name="select-native-10" id="select-native-10" data-iconpos="left">
+																<option value="1">9:30-10:30</option>
+															   <option value="2">10:00-11:00</option>
+															   <option value="3">10:30-11:30</option>
+															   <option value="4">11:00-12:00</option>
+																 <option value="4">11:30-12:30</option>
+																 <option value="4">14:00-15:00</option>
+																 <option value="4">14:30-15:30</option>
+																 <option value="4">15:00-16:00</option>
+																 <option value="4">15:30-16:30</option>
+													    </select>
+													</div>
+												</form>
+
+												<a href="#gym-menu" class="ui-btn ui-btn-inline ui-icon-check ui-btn-icon-right">Confirm</a>
+								</p>
+
+
+				    </div><!-- /content -->
+
+				<div data-role="footer">
+			   <a href="#gym-menu" class="ui-btn ui-btn-inline ui-icon-arrow-l ui-btn-icon-left">Back</a>
+			</div>
+
+
+				    <div data-role="panel" data-display="push" data-theme="b" id="nav-panel">
+				        <ul data-role="listview">
+				                <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+				                <li><a href="#gym-menu">Gym Main Menu</a></li>
+				                <li><a href="#time">Opening Hours</a></li>
+				                <li><a href="#View">Appointment(s) Booked</a></li>
+				                <li><a href="#bmi-cal">BMI Calculator</a></li>
+				                <li><a href="#Acc">Account Details</a></li>
+				                
+				        </ul>
+				    </div><!-- /panel -->
+</div>
+
+
+<!-- VIEW PERSONAL PTS-->
+<div data-role="page" id="List">
+
+									<div data-role="header">
+										 <h1>View Personal Pt's</h1>
+									</div><!-- /header -->
+								<div>
+											<p>Information is based on the Personal Trainer you choose.</p>
+											<form>
+													<div class="ui-field-contain">
+													    <label for="select-native-3">Encountered Trainer(s):</label>
+													    <select name="select-native-3" id="select-native-3" data-iconpos="false">
+													        <option value="6">Sean, #101</option>
+													        <option value="2">Harry, #103</option>
+													        <option value="3">Enzo, #104</option>
+													        <option value="4">Robert, #105</option>
+													    </select>
+													</div>
+											</form>
+
+												<div id="text-basic1"></div>
+								</div><!-- /content -->
+
+								<div data-role="footer">
+							   <a href="#Acc" class="ui-btn ui-btn-inline ui-icon-arrow-l ui-btn-icon-left">Back</a>
+							  </div>
+</div>
+
+
+<!-- BILLING INFORMATION-->
+<div data-role="page" id="Bill">
+
+					<div data-role="header">
+						 <h1>Billing Information</h1>
+					</div><!-- /header -->
+				<div>
+
+							<div class="ui-field-contain">
+							    <label for="select-custom-1">Card Name:</label>
+								    <select name="select-custom-1" id="select-custom-1" data-iconpos="left">
+								        <option value="1">AIB</option>
+								        <option value="2">Bank Of Ireland</option>
+								        <option value="3">Master Card</option>
+								        <option value="4">Ulster Bank</option>
+								    </select>
+							</div>
+
+								<p>
+								  <label for="text-basic">Card Number:</label>
+								  <input type="text" class="ui-btn ui-btn-a" name="text-basic" id="text-basic" value="" placeholder ="XXXX-XXXX-XXXX-XXXX">
+								</p>
+
+								<p>
+								  <label for="text-basic">Security Number:</label>
+							    <input type="text" class="ui-btn ui-btn-a" name="text-basic" id="text-basic" value="" placeholder ="XXX">
+								</p>
+
+								<p>
+								  <label for="text-basic">Expiry Date:</label>
+							    <input type="text" class="ui-btn ui-btn-a" name="text-basic" id="text-basic" value="" placeholder ="XX/XX">
+								</p>
+
+								<p>
+								  <label for="text-basic">Full Name:</label>
+							    <input type="text" class="ui-btn ui-btn-a" name="text-basic" id="text-basic" value="" placeholder ="">
+								</p>
+
+								<p><center><a href="#popupDialog4" data-rel="popup" data-position-to="window" data-transition="pop" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a">Update</a>
+											<div data-role="popup" id="popupDialog4" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
+											    <div data-role="header" data-theme="a">
+											        <h1>Update?</h1>
+											    </div>
+											    <div role="main" class="ui-content">
+											        <h3 class="ui-title">You are about to update your Billing information and your previous information will be deleted.</h3>
+											          <p>You are sure and have double-checked.Changes cannot be undone</p>
+
+											        <a href="" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a" data-rel="back">Cancel</a>
+											        <a href="" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a" data-rel="back" data-transition="flow">Save</a>
+										 			</div>
+										 </div>
+					       </center>
+						   </p>
+
+
+				</div><!-- /content -->
+
+					<div data-role="footer">
+				   <a href="#Acc" class="ui-btn ui-btn-inline ui-icon-arrow-l ui-btn-icon-left">Back</a>
+			    </div>
+</div>
+
+
+<script src="js/gsap.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

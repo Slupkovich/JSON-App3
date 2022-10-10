@@ -1,0 +1,29 @@
+SELECT
+	appointment_tbl.Appointment_ID,
+	appointment_tbl.Appoint_Date_Time,
+	appointment_tbl.did_Attended,
+	appointment_tbl.Appoint_Room,
+	owner_tbl.Owner_ID,
+	owner_tbl.Owner_FName,
+	owner_tbl.Owner_Surname,
+	owner_tbl.Owners_Address_1,
+	owner_tbl.Owners_Address_2,
+	owner_tbl.Owners_City,
+	owner_tbl.Owners_Post_Code,
+	owner_tbl.Owners_Country,
+	vet_tbl.Vet_ID,
+	vet_tbl.Vet_Name,
+	pet_tbl.Pet_ID,
+	pet_tbl.Pet_Name,
+	pet_tbl.Pet_Age,
+	pet_tbl.Pet_Sex,
+	pet_tbl.Pet_Type,
+	pet_tbl.is_Alergic_Penicillin
+FROM
+	owner_tbl
+	INNER JOIN pet_tbl
+	 ON owner_tbl.Owner_ID = pet_tbl.Owner_ID
+	INNER JOIN appointment_tbl
+	 ON pet_tbl.Pet_ID = appointment_tbl.Pet_ID
+	INNER JOIN vet_tbl
+	 ON appointment_tbl.Vet_ID = vet_tbl.Vet_ID

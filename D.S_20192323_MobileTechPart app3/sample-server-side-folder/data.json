@@ -1,0 +1,32 @@
+{
+	"appointments":[],
+	"ownerDetails":{
+		"ID":4,
+		"FName":"Teddy",
+		"Surname":"Bundy",
+		"Add1":"7 MyHouse",
+		"Add2":"Dun Laoghaire",
+		"City":"Dublin",
+		"Post_Code":"L12 345",
+		"Country":"UK"
+	},
+	"pets":[
+	{
+		"Pet_ID":3,
+		"Pet_Name":"Sir Barks Alot",
+		"Pet_Age":5,
+		"Pet_Sex":1,
+		"Pet_Type":"Cat",
+		"is_Alergic_Penicillin":1
+	},
+	{
+		"Pet_ID":5,
+		"Pet_Name":"Is Alot",
+		"Pet_Age":7,
+		"Pet_Sex":0,
+		"Pet_Type":"Dog",
+		"is_Alergic_Penicillin":1
+	}
+	]
+}
+
